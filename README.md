@@ -23,3 +23,4 @@ DescripcionOSTYoutube.generaArchivoCanciones(path="rutaabsoluta")
 | Parámetro | Descripción |
 | --------- | ----------- |
 | Path | Indica la ruta absoluta donde se encuentran los ficheros MP3 ubicados y que forman parte del video. Si no se indica, se hará en el directorio actual. El fichero de salida se ubica en este mismo directorio. |
+| hayretardo | Parámetro Opcional que indica si debe aplicarse un retraso de 1seg cada 5 canciones. No utilizar si se utiliza directamente en un ripeador tipo Sony Vegas o Camtasia |
