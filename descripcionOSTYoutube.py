@@ -124,7 +124,7 @@ class DescripcionOSTYoutube:
             minutes = minutes % 60
             hours = hours + hourssumar
             numcanciones = numcanciones +1 
-            numcanciones = numcanciones%5
+            numcanciones = numcanciones%4
         f.close()
     
     def __crearCadenaTiempo(self,hours,minutes,seconds):
