@@ -94,12 +94,13 @@ from mutagen.mp3 import MP3
 
 class DescripcionOSTYoutube:
  
-    def generaArchivoCanciones(path=''):
+    def generaArchivoCanciones(path='',hayretardo=False):
         self = DescripcionOSTYoutube()
         f = open(path + "out.txt","wt")
         seconds = 0
         minutes = 0
         hours = 0
+        numcanciones = 1
         for name in glob.glob(path + '*.mp3'):
             nombrecorto = os.path.basename(name)
             audio = MP3(name)
@@ -113,6 +114,8 @@ class DescripcionOSTYoutube:
             # cargamos los tiempos, sumamos los segundos, se utilizan los decimales para la suma
             # para calcular el tiempo exacto
             seconds = seconds + audio.info.length
+            if numcanciones == 0 and hayretardo:
+                seconds = seconds + 1
             # y ahora lo convertimos a formato correcto
             minutessumar = trunc(seconds / 60)
             seconds = seconds % 60
@@ -120,6 +123,8 @@ class DescripcionOSTYoutube:
             hourssumar = trunc(minutes / 60)
             minutes = minutes % 60
             hours = hours + hourssumar
+            numcanciones = numcanciones +1 
+            numcanciones = numcanciones%5
         f.close()
     
     def __crearCadenaTiempo(self,hours,minutes,seconds):
@@ -170,6 +175,8 @@ if __name__ == '__main__':
 
         parser.add_argument('path',
                             help="Ruta donde se localizan los Mp3 que se quiera generar los tiempos de pista para Youtube")
+        parser.add_argument('hayretardo', nargs='?',
+                            help="Indica si debe considerarse un retardo de 1seg cada 5 canciones")
         
         parser.add_argument('-h', '--help', action='help', default=argparse.SUPPRESS,
                             help="Enseña esta ayuda y termina el programa")
@@ -178,7 +185,8 @@ if __name__ == '__main__':
 
 
         path = arguments.path if arguments.path is not None else []
-        DescripcionOSTYoutube.generaArchivoCanciones(path)
+        hayretardo = arguments.hayretardo if arguments.hayretardo is not None else False
+        DescripcionOSTYoutube.generaArchivoCanciones(path,hayretardo)
         return 0
     
     sys.exit(doIt())
