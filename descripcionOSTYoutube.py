@@ -101,7 +101,7 @@ class DescripcionOSTYoutube:
         minutes = 0
         hours = 0
         numcanciones = 1
-        for name in glob.glob(path + '*.mp3'):
+        for name in sorted(glob.glob(path + '*.mp3')):
             nombrecorto = os.path.basename(name)
             audio = MP3(name)
             #en cada linea va, el tiempo actual y el nombre de la cancion
