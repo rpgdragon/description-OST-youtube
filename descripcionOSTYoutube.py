@@ -89,11 +89,27 @@ if __name__ == '__main__':
 # ------
 
 
+    def mysorter( x):
+       path, fn = os.path.split( x)
+       fn,ext = os.path.splitext( fn)
+       i = 0
+       aux = fn;
+       while i < len(fn) and i < 5:
+           if fn[i].isdigit():
+               i = i+1;
+           else:
+               break;
+       while i < 5:
+           aux = '0' + aux
+           i = i + 1
+       return f'{path}/{aux}.{ext}'
+
+
 from mutagen.mp3 import MP3
 
 
 class DescripcionOSTYoutube:
- 
+
     def generaArchivoCanciones(path='',hayretardo=False):
         self = DescripcionOSTYoutube()
         f = open(path + "out.txt","wt")
@@ -101,7 +117,7 @@ class DescripcionOSTYoutube:
         minutes = 0
         hours = 0
         numcanciones = 1
-        for name in sorted(glob.glob(path + '*.mp3')):
+        for name in sorted(glob.glob(path + '*.mp3'),key=mysorter):
             nombrecorto = os.path.basename(name)
             audio = MP3(name)
             #en cada linea va, el tiempo actual y el nombre de la cancion
